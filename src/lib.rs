@@ -1,3 +1,5 @@
+use core::cmp::Ord;
+
 #[inline(never)]
 pub fn quick_sort<T: Ord>(arr: &mut [T]) {
     let len = arr.len();
