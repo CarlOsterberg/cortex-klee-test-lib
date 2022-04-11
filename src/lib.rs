@@ -1,3 +1,4 @@
+#![no_std]
 use core::cmp::Ord;
 
 #[inline(never)]
