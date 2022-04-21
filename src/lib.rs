@@ -72,3 +72,14 @@ pub fn do_things(input: &str) -> bool {
         input.as_bytes().ends_with(&[0])
     }
 }
+
+#[inline(never)]
+pub fn pi(n: u32) -> f64 {
+    if n==1 {
+        4.0
+    }
+    else {
+
+        4.0/((n+1)*(1/(2*n-1))) as f64 + pi(n-1)   
+    }
+}
