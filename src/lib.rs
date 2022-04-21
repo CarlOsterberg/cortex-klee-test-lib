@@ -75,7 +75,7 @@ pub fn do_things(input: &str) -> bool {
 
 #[inline(never)]
 pub fn pi(n: u32) -> f64 {
-    if n==1 {
+    if n<=1{
         4.0
     }
     else {
