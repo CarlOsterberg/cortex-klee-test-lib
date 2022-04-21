@@ -74,7 +74,7 @@ pub fn do_things(input: &str) -> bool {
 }
 
 #[inline(never)]
-pub fn pi(n: u32) -> f64 {
+pub fn pi(n: u8) -> f64 {
     if n<=1{
         4.0
     }
