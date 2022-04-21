@@ -58,13 +58,19 @@ pub fn bubble_sort(vec: &mut [i32]) {
 }
 
 #[inline(never)]
-pub fn get_sign(x: i32) -> i32 {
-    if x == 0 {
-        return 0;
-    }
-    if x < 0 {
-        return -1;
-    } else {
-        return 1;
-    }
+pub fn is_palindrome(phrase: &str) -> bool {
+    // get the chars iterator and associated index
+    phrase.char_indices().filter(|&(_,c)| c.is_alphabetic())
+                // zip with the second half...
+                .zip(phrase.char_indices()
+                           // which needs to be reversed...
+                           .rev()
+                           // and filter out bad cars
+                           .filter(|&(_,c)| c.is_alphabetic()))
+                // accept all input until the indexes have crossed
+                .take_while(|&((first_count, _), (last_count, _))| {first_count < last_count})
+                // check that all the chars from the begining and end match
+                .all(|((_, first_char), (_, last_char))| {
+                    first_char.to_ascii_lowercase() == last_char.to_ascii_lowercase()
+                })
 }
