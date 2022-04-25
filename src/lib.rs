@@ -74,12 +74,23 @@ pub fn do_things(input: &str) -> bool {
 }
 
 #[inline(never)]
-pub fn pi(n: u8) -> f64 {
-    if n<=1{
-        4.0
+pub fn fibonacci_iterative(n: u32) -> u32 {
+ 
+    let mut first_number:u32 = 0;
+    let mut second_number:u32 = 0;
+    let mut current_number:u32 = 1;
+ 
+    let mut i:u32 = 1;
+ 
+    while i < n {
+ 
+        first_number = second_number;
+ 
+        second_number = current_number;
+ 
+        current_number = first_number + second_number;
+ 
+        i = i + 1;
     }
-    else {
-
-        4.0/((n+1)*(1/(2*n-1))) as f64 + pi(n-1)   
-    }
+    return current_number;
 }
