@@ -105,12 +105,6 @@ pub fn fibonacci_iterative(n: u32) -> u32 {
 
 #[inline(never)]
 pub fn tree_from_arr(arr:&[i32]) -> Tree {
-    {
-        use core::mem::MaybeUninit;
-        const HEAP_SIZE: usize = 1024;
-        static mut HEAP: [MaybeUninit<u8>; HEAP_SIZE] = [MaybeUninit::uninit(); HEAP_SIZE];
-        unsafe { ALLOCATOR.init(HEAP.as_ptr() as usize, HEAP_SIZE) }
-    }
     let mut tree = Tree::mktree();
     for num in arr {
         tree = tree.insert(*num);
