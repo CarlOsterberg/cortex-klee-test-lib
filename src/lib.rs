@@ -1,9 +1,11 @@
 #![no_std]
+#![feature(default_alloc_error_handler)]
 use core::{cmp::Ord};
 
 use tree::Tree;
 mod tree;
 use alloc_cortex_m::CortexMHeap;
+
 
 #[global_allocator]
 static ALLOCATOR: CortexMHeap = CortexMHeap::empty();
