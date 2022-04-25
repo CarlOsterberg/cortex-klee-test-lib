@@ -1,14 +1,8 @@
 #![no_std]
-#![feature(default_alloc_error_handler)]
 use core::{cmp::Ord};
 
-use tree::Tree;
-mod tree;
-use alloc_cortex_m::CortexMHeap;
+use heapless::Vec;
 
-
-#[global_allocator]
-static ALLOCATOR: CortexMHeap = CortexMHeap::empty();
 
 #[inline(never)]
 pub fn quick_sort<T: Ord>(arr: &mut [T]) {
@@ -81,33 +75,39 @@ pub fn do_things(input: &str) -> bool {
     }
 }
 
-#[inline(never)]
-pub fn fibonacci_iterative(n: u32) -> u32 {
- 
-    let mut first_number:u32 = 0;
-    let mut second_number:u32 = 0;
-    let mut current_number:u32 = 1;
- 
-    let mut i:u32 = 1;
- 
-    while i < n {
- 
-        first_number = second_number;
- 
-        second_number = current_number;
- 
-        current_number = first_number + second_number;
- 
-        i = i + 1;
-    }
-    return current_number;
-}
+pub fn is_palindrome_classic(phrase: &str) -> bool {
+    if phrase.len() == 0 { return true }
 
-#[inline(never)]
-pub fn tree_from_arr(arr:&[i32]) -> Tree {
-    let mut tree = Tree::mktree();
-    for num in arr {
-        tree = tree.insert(*num);
+    // need to do this because Rust is rightly trying to force you away from treating strs as
+    //  arrays
+    let mut xs: Vec<char, 30> = Vec::new();
+    
+    xs = phrase.chars().collect();
+
+    // start from the beginning
+    let mut first_idx = 0;
+
+    // and the end, btw, don't forget the off-by-one b/c of len() is actually past the last index...
+    //  this is a classic error avoided implicitly above.
+    let mut last_idx = phrase.len() - 1;
+    // loop and guard that we don't go too far
+    while first_idx < last_idx {
+        // filter out non-alphabetics, the += and -= would be something you could accidentally screw up,
+        //   avoided in the iterator based impl
+        if !xs[first_idx].is_alphabetic() { first_idx += 1; continue }
+        if !xs[last_idx].is_alphabetic() { last_idx -= 1; continue }
+
+        // compare the values, did we compare the correct indexes? again avoided in the iterator impl
+        if xs[first_idx].to_ascii_lowercase() != xs[last_idx].to_ascii_lowercase() {
+            return false;
+        }
+
+        // same += and -= potential bug avoided in the iterator impl
+        first_idx += 1;
+        last_idx -= 1;
     }
-    tree
+
+    // is this actually simpler or more readable? I don't think so...
+
+    true
 }
