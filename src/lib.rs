@@ -3,7 +3,10 @@ use core::{cmp::Ord};
 
 use tree::Tree;
 mod tree;
+use alloc_cortex_m::CortexMHeap;
 
+#[global_allocator]
+static ALLOCATOR: CortexMHeap = CortexMHeap::empty();
 
 #[inline(never)]
 pub fn quick_sort<T: Ord>(arr: &mut [T]) {
