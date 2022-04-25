@@ -1,6 +1,9 @@
 #![no_std]
 use core::{cmp::Ord};
 
+use tree::Tree;
+mod tree;
+
 
 #[inline(never)]
 pub fn quick_sort<T: Ord>(arr: &mut [T]) {
@@ -93,4 +96,13 @@ pub fn fibonacci_iterative(n: u32) -> u32 {
         i = i + 1;
     }
     return current_number;
+}
+
+#[inline(never)]
+pub fn tree_from_arr(arr:&[i32]) -> Tree {
+    let mut tree = Tree::mktree();
+    for num in arr {
+        tree = tree.insert(*num);
+    }
+    tree
 }
