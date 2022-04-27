@@ -1,8 +1,6 @@
 #![no_std]
 use core::{cmp::Ord};
 
-use heapless::Vec;
-
 
 #[inline(never)]
 pub fn quick_sort<T: Ord>(arr: &mut [T]) {
